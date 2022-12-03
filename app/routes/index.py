@@ -1,17 +1,26 @@
 from app import app, render_template
 import os
 from pathlib import Path
+CWD = ''
+ROOT_DIR = "TBD"
 @app.route("/api/")
 def index_root():
+    global CWD, ROOT_DIR
     
+    if ROOT_DIR == 'TBD':
+        ROOT_DIR = os.getcwd()
     folder_item = []
-    
-    dir = os.listdir()
+    print("ROOT"+ ROOT_DIR)
+    os.chdir(ROOT_DIR)
+    CWD = os.getcwd()
+    dir = os.listdir(ROOT_DIR)
+    print(dir)
     for list in dir:
         if (os.path.isfile(list)):
             folder_item.append({
                 "name": list,
-                "type": "file"
+                "type": "file",
+                "size": os.stat(list).st_size 
             })
         elif (os.path.isdir(list)):
             folder_item.append({
@@ -20,25 +29,41 @@ def index_root():
             })
 
     return folder_item
-    
 
-@app.route("/api/<path:subpath>")
-def index_path(subpath):
-    # dir = 0
+
+@app.route("/api/<path:path>")
+def index_path(path):
+    global ROOT_DIR
+    global CWD
+    if ROOT_DIR == "TBD":
+        ROOT_DIR = os.getcwd()
+    print("ROOT"+ ROOT_DIR)
+    ERROR = ''
+    
+    dir = 1
+    subpath = os.path.join(ROOT_DIR, path)
+    
+    
+    try:
+        os.chdir(subpath)
+        CWD = os.path.join(ROOT_DIR, path)
+    except FileNotFoundError:
+        ERROR = "File not found"
+        dir = 0
     folder_item = []
-    if (os.path.exists(subpath) and os.path.isdir == True):
+    if (os.path.exists(subpath) and os.path.isdir(subpath)):
+        
         dir = os.listdir(subpath)
         for list in dir:
-            _abs_path = os.path.abspath(list).split("/")
-            _abs_path[len(_abs_path)-1] = subpath
-            _abs_path.append(list)
-            abs_path = "/".join(_abs_path)
-            print(abs_path)
+            abs_path = os.path.abspath(list)
+            # print(abs_path)
             if (os.path.isfile(abs_path)):
                 
                 folder_item.append({
                     "name": list,
-                    "type": "file"
+                    "type": "file",
+                    "size": os.stat(abs_path).st_size
+                    
                 })
             elif (os.path.isdir(abs_path)):
                 folder_item.append({
@@ -55,7 +80,6 @@ def index_path(subpath):
     if dir != 0:
         return folder_item
     else:
-        return "0"
-    
-
-
+        return {
+            "error": ERROR,            
+        }
