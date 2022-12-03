@@ -1,0 +1,84 @@
+body {
+  border: 2px solid #242834;
+  width: 75%;
+  margin: auto;
+  margin-top: 2rem;
+  border-radius: 8px;
+  background: #12141a;
+  overflow: auto;
+  color: #fff;
+  font-family: sans-serif;
+  position: relative;
+  padding: 0px;
+}
+
+.tool_bar {
+  background: #252936;
+  height: 45px;
+  line-height: 45px;
+}
+
+.tool_bar ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+}
+
+.tool_bar ul li {
+  font-weight: bold;
+  transition: 0.25s;
+  cursor: pointer;
+  background: transparent;
+  padding: 0px 11px;
+}
+
+.tool_bar ul li:hover {
+  background: #3e4354;
+}
+.path_bar {
+  background: #3e4354;
+  padding: 5px;
+}
+img.path_bar_arrow {
+  height: 14px;
+  filter: invert(1);
+}
+
+div#path_bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #12141a;
+  padding: 5px;
+}
+
+.pathbar_item {
+  color: #008eff;
+  font-weight: bold;
+  cursor: pointer;
+}
+.ls-dir {
+  border-bottom: 2px solid #272b39;
+  padding: 10px 15px;
+}
+
+.ls-file {
+  border-bottom: 2px solid #272b39;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#file_list_container div:nth-child(2n) {
+  background: #181a22;
+}
+
+#file_list_container div:hover {
+  background: #252936;
+}
+
+#file_list_container div {
+  transition: 0.1s;
+  cursor: pointer;
+}

@@ -5,8 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello Flask</title>
+    <script
+      src="https://kit.fontawesome.com/9e4d55b156.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/ui.css')}}"
+    />
   </head>
   <body>
-    <h1>helllo from Flasky acgain</h1>
+    <div class="tool_bar">
+      <ul>
+        <li id="ic_refresh">
+          <i class="fa-solid fa-arrows-rotate"></i> Refresh
+        </li>
+        <li id="ic_create"><i class="fa-solid fa-plus"></i> Craate</li>
+        <li id="ic_upload"><i class="fa-solid fa-upload"></i> Upload</li>
+        <li id="ic_search">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </li>
+      </ul>
+    </div>
+    <div id="path_bar">•••</div>
+
+    <section id="file_list_container"></section>
+
+    <script src="{{ url_for('static', filename='js/glob_functions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/glob_vars.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

@@ -1,7 +1,13 @@
 import os
+# try:
+#     ls = os.listdir()
+#     for l in ls:
+#         print(os.path.abspath(l))
+# except FileNotFoundError:
+#     print("file not found")
+
 try:
-    ls = os.listdir()
-    for l in ls:
-        print(os.path.abspath(l))
+    os.chdir("jnejdfjdf")
+    pass
 except FileNotFoundError:
-    print("file not found")
+    print("File doesn't exists")
