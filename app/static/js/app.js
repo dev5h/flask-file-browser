@@ -9,7 +9,7 @@ function init_pathbar(path_ = "?") {
   }
   path_array = path_array.filter((e) => e != "");
   if (path_array.length > 0) {
-    let offset = `<div class="pathbar_item" onclick="redirect('/')">•••</div><img class="path_bar_arrow" src="/static/assets/ic_right.svg"/>`;
+    let offset = `<div class="pathbar_item" onclick="load_flist('/')">•••</div><img class="path_bar_arrow" src="/static/assets/ic_right.svg"/>`;
     let redirect = "/";
     path_array.forEach((item, id) => {
       redirect += item + "/";
@@ -18,7 +18,10 @@ function init_pathbar(path_ = "?") {
       <div style="color:lime" class="pathbar_item">${item}</div> `;
       } else {
         offset += `
-    <div onclick=redirect('${redirect}') class="pathbar_item">${item}</div><img class="path_bar_arrow" src="/static/assets/ic_right.svg"/>
+    <div onclick="load_flist('${redirect.substring(
+      0,
+      redirect.length - 1
+    )}')" class="pathbar_item">${item}</div><img class="path_bar_arrow" src="/static/assets/ic_right.svg"/>
     `;
       }
     });
@@ -27,6 +30,7 @@ function init_pathbar(path_ = "?") {
     console.log("root");
   }
 }
+init_pathbar();
 
 //Loading file list
 function load_flist(path_ = "?") {
@@ -66,6 +70,7 @@ function load_flist(path_ = "?") {
         dirs[i].addEventListener("click", function () {
           load_flist(path + this.getAttribute("dir-name"));
           path = path + this.getAttribute("dir-name") + "/";
+          init_pathbar(path.substring(0, path.length - 1));
         });
       }
     });
