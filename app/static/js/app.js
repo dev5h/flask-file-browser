@@ -1,8 +1,8 @@
+var path_array = [];
 //Initiating pathbar:
 function init_pathbar(path_ = "?") {
-  let path_array;
   if (path_ == "?") {
-    path_array = path.substring(1).split("/");
+    path_array = path_.substring(1).split("/");
   } else {
     path_array =
       path_[0] == "/" ? path_.substring(1).split("/") : path_.split("/");
@@ -27,31 +27,34 @@ function init_pathbar(path_ = "?") {
     });
     path_bar.innerHTML = offset;
   } else {
-    console.log("root");
+    // console.log("root");
   }
 }
 init_pathbar();
 
 //Loading file list
 function load_flist(path_ = "?") {
+  console.log("I am Clicked", path_);
+
   var fetch_uri;
   if (path_ == "?") {
     fetch_uri = "api" + path;
   } else {
     fetch_uri = "api" + path_;
   }
-  console.log(fetch_uri);
+
   fetch(fetch_uri)
     .then((resp) => {
       return resp.json();
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       let vertex = "";
       data.forEach((item, id) => {
         if (item.type == "dir") {
           vertex += `
         <div class='ls-dir' dir-name='${item.name}'>
+        <img src="/static/assets/ic_folder.svg" alt="" class="dir_ic" />
           <div class='title'> ${item.name}</div>
         </div>
         `;
@@ -71,6 +74,7 @@ function load_flist(path_ = "?") {
           load_flist(path + this.getAttribute("dir-name"));
           path = path + this.getAttribute("dir-name") + "/";
           init_pathbar(path.substring(0, path.length - 1));
+          console.log("Path array", path_array);
         });
       }
     });

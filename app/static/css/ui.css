@@ -81,4 +81,19 @@ div#path_bar {
 #file_list_container div {
   transition: 0.1s;
   cursor: pointer;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+img.dir_ic {
+  height: 13px;
+}
+img.file_ic {
+  height: 16px;
+}
+
+.file_icon_pack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
